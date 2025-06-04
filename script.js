@@ -1,3 +1,3 @@
 const refs = {};
-
-function init() {}
+const P = new Pokedex.Pokedex();
+function init() { }
