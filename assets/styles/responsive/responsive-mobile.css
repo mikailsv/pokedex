@@ -1,0 +1,10 @@
+@media (max-width: 767px) {
+    .hide-on-mobile {
+        display: none;
+    }
+
+    .show-on-mobile {
+        display: unset;
+    }
+
+}

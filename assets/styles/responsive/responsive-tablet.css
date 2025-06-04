@@ -1,0 +1,9 @@
+@media (min-width: 768px) and (max-width: 900px) {
+    .show-on-tablet {
+        display: unset;
+    }
+
+    .hide-on-tablet {
+        display: none;
+    }
+}

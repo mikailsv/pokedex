@@ -1,0 +1,11 @@
+.hide-on-mobile,
+.hide-on-tablet {
+    display: unset;
+}
+
+.show-on-mobile,
+.show-on-tablet {
+    display: none;
+}
+
+@media (max-width: 900px) {}
