@@ -24,6 +24,7 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
@@ -37,9 +38,23 @@
 
 <body onload="init()">
 
-  <div class="container d-flex justify-content-between">
-    <h1 class="text-danger">Hello World!</h1>
-  </div>
+  <header class="py-3 mb-4 border-bottom">
+    <div class="container d-flex flex-wrap justify-content-center">
+
+      <a href="/" class="mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
+        <span class="fs-4">Pokedex</span>
+      </a>
+
+      <form class="col-12 col-lg-auto mb-3 mb-lg-0">
+        <div class="input-group">
+          <input type="search" class="form-control" placeholder="Search your Pokemon" aria-label="Search your Pokemon">
+          <button class="btn btn-outline-primary" type="button" id="button-addon2">
+            <i class="bi bi-search"></i></button>
+        </div>
+      </form>
+
+    </div>
+  </header>
 
   <!-- Pokedex JS Wrapper -->
   <script src="https://unpkg.com/pokeapi-js-wrapper/dist/index.js"></script>
