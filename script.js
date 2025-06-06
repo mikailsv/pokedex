@@ -21,7 +21,7 @@ const dropdownElement = document.querySelector('.btn-dropdown');
 const dropdown = new bootstrap.Dropdown(dropdownElement);
 
 function handlePokemonInput() {
-    const pokemonName = document.getElementById('pokemon-query').value;
+    const pokemonName = document.getElementById('pokemon-query').value.toLowerCase();
     if (pokemonName.length < 1) {dropdown.hide(); return;}
     const suggestions = pokemons.filter(pokemon => pokemon.name.startsWith(pokemonName)).slice(0, 8);
     if (suggestions.length == 0) {dropdown.hide(); return;}
