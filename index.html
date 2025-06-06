@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="assets/styles/standard.css">
   <link rel="stylesheet" href="assets/styles/header.css">
   <link rel="stylesheet" href="assets/styles/footer.css">
+  <link rel="stylesheet" href="assets/styles/utilites/cursor.css">
 
   <!-- Responsive Design -->
   <link rel="stylesheet" href="assets/styles/responsive/responsive.css">
@@ -53,24 +54,19 @@
         <i class="bi bi-book-half translate-middle-y"></i>
       </a>
 
-      <form class="col-12 col-sm-auto mb-3 mb-sm-0">
+      <form class="col-12 col-sm-auto mb-3 mb-sm-0" onsubmit="search(); return false;">
         <div class="input-group">
 
           <input class="form-control" type="search" id="pokemon-query" name="query" placeholder="Search your Pokemon"
-            aria-label="Search your Pokemon" minlength="3" required>
+            aria-label="Search your Pokemon" minlength="3" required onkeyup="handlePokemonInput()">
 
           <button type="submit" class="btn btn-outline-primary">
             <i class="bi bi-search"></i>
           </button>
 
           <div data-bs-toggle="dropdown" class="btn-dropdown"></div>
-
-          <ul class="dropdown-menu w-100">
-            <li><a class="dropdown-item text-capitalize fw-semibold" href="#">Pikachu</a></li>
-            <li><a class="dropdown-item text-capitalize fw-semibold" href="#">Charizard</a></li>
-            <li><a class="dropdown-item text-capitalize" href="#">Bulbasaur</a></li>
-            <li><a class="dropdown-item text-capitalize" href="#">Gengar</a></li>
-            <li><a class="dropdown-item text-capitalize" href="#">Lucario</a></li>
+          <ul class="dropdown-menu w-100" id="search-suggestions">
+            
           </ul>
         </div>
       </form>
