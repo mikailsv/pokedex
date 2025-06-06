@@ -45,7 +45,7 @@
 
 <body onload="init()">
 
-  <header class="py-4 mb-4 border-bottom">
+  <header class="py-3 mb-4 border-bottom">
     <div class="container d-flex flex-wrap justify-content-center">
 
       <a href="/" class="mb-3 mb-lg-0 me-sm-auto text-dark text-decoration-none">
@@ -56,27 +56,22 @@
       <form class="col-12 col-sm-auto mb-3 mb-sm-0">
         <div class="input-group">
 
-          <input 
-          class="form-control"
-          type="search" 
-          id="pokemon-query" 
-          placeholder="Search your Pokemon"
-          aria-label="Search your Pokemon">
+          <input class="form-control" type="search" id="pokemon-query" name="query" placeholder="Search your Pokemon"
+            aria-label="Search your Pokemon" minlength="3">
 
-          <span class="input-group-text">
+          <button type="submit" class="btn btn-outline-primary">
             <i class="bi bi-search"></i>
-          </span>
+          </button>
 
           <div data-bs-toggle="dropdown" class="btn-dropdown"></div>
 
           <ul class="dropdown-menu w-100">
-            <li class="dropdown-item">Pikachu</li>
-            <li class="dropdown-item">Charizard</li>
-            <li class="dropdown-item">Bulbasaur</li>
-            <li class="dropdown-item">Gengar</li>
-            <li class="dropdown-item">Lucario</li>
+            <li><a class="dropdown-item text-capitalize fw-semibold" href="#">Pikachu</a></li>
+            <li><a class="dropdown-item text-capitalize fw-semibold" href="#">Charizard</a></li>
+            <li><a class="dropdown-item text-capitalize" href="#">Bulbasaur</a></li>
+            <li><a class="dropdown-item text-capitalize" href="#">Gengar</a></li>
+            <li><a class="dropdown-item text-capitalize" href="#">Lucario</a></li>
           </ul>
-
         </div>
       </form>
 
