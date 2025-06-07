@@ -41,6 +41,7 @@ async function showDetails(pokemonId) {
     console.log(pokemon);
     document.getElementById('pokemon-title').innerHTML = pokemon.name;
     renderTypeBadges(pokemon.types.map(typeObj => typeObj.type.name));
+    document.getElementById('pokemon-image').src = pokemon.sprites.other['official-artwork'].front_default;
 }
 
 function renderTypeBadges(types) {
