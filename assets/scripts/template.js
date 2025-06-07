@@ -1,10 +1,10 @@
 function getDropdownItemTemplate(pokemon) {
     return `
     <li 
-    class="dropdown-item cursor-pointer text-capitalize" 
-    onclick="showDetails(${pokemon.id})"
+    class="dropdown-item cursor-pointer text-capitalize"
     data-bs-toggle="modal"
-    data-bs-target="#pokemonDetails">${pokemon.name}</li>
+    data-bs-pokemon="${pokemon.name}"
+    data-bs-target="#pokemon-details-modal">${pokemon.name}</li>
     `;
 }
 

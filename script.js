@@ -1,4 +1,8 @@
-const refs = {};
+const refs = {
+    dropdownTrigger: document.querySelector('[data-bs-toggle=dropdown]'),
+    dropdownMenu: document.querySelector('.dropdown-menu'),
+    pokemonModal: document.getElementById('pokemon-details-modal')
+};
 const P = new Pokedex.Pokedex({ cacheImages: true });
 let pokemons = [];
 
@@ -10,44 +14,60 @@ async function init() {
             id: pokemonEntry.url.split("/").slice(-2, -1).pop()
         }
     });
-    console.log(pokemons);
 }
 
 function search() {
     // TODO: Implement submit event for searching and displaying pokemons, that matches query.
 }
 
-const dropdownElement = document.querySelector('.btn-dropdown');
-const dropdown = new bootstrap.Dropdown(dropdownElement);
+const dropdown = new bootstrap.Dropdown(refs.dropdownTrigger);
 
 function handlePokemonInput() {
     const pokemonName = document.getElementById('pokemon-query').value.toLowerCase();
-    const suggestions = pokemons.filter(pokemon => pokemon.name.startsWith(pokemonName)).slice(0, 8);
-    if (suggestions.length == 0 || pokemonName.length == 0) {dropdown.hide(); return;}
+    const suggestions = pokemons.filter(pokemon => pokemon.name.startsWith(pokemonName)).slice(0, 4);
+    if (suggestions.length == 0 || pokemonName.length == 0) { dropdown.hide(); return; }
     renderPokemonSuggestions(suggestions);
     dropdown.show();
 }
 
 function renderPokemonSuggestions(pokemonSuggestions) {
-    const container = document.getElementById('search-suggestions');
-    container.innerHTML = '';
-    pokemonSuggestions.forEach(pokemon => {
-        container.innerHTML += getDropdownItemTemplate(pokemon);
-    });
+    refs.dropdownMenu.innerHTML = '';
+    pokemonSuggestions.forEach(pokemon => refs.dropdownMenu.innerHTML += getDropdownItemTemplate(pokemon));
 }
 
-async function showDetails(pokemonId) {
-    let pokemon = await P.getPokemonByName(pokemonId);
-    console.log(pokemon);
-    document.getElementById('pokemon-title').innerHTML = pokemon.name;
-    renderTypeBadges(pokemon.types.map(typeObj => typeObj.type.name));
-    document.getElementById('pokemon-image').src = pokemon.sprites.other['official-artwork'].front_default;
+if (refs.pokemonModal) {
+    refs.pokemonModal.addEventListener('show.bs.modal', async event => {
+        const name = event.relatedTarget.getAttribute('data-bs-pokemon');
+        const pokemon = await P.getPokemonByName(name);
+        console.log(pokemon);
+        updatePokemonModal(pokemon);
+    })
+    refs.pokemonModal.addEventListener('hide.bs.modal', async event => {
+        resetPokemonModal();
+    })
 }
 
-function renderTypeBadges(types) {
-    const container = document.getElementById('badge-group');
-    container.innerHTML = '';
-    types.forEach(type => {
-        container.innerHTML += getBadgeTemplate(type);
-    });
+function updatePokemonModal(pokemon) {
+    const pokemonImage = refs.pokemonModal.querySelector('#pokemon-image');
+    pokemonImage.src = pokemon.sprites.other['official-artwork'].front_default;
+    pokemonImage.onload = () => {
+        handlePlaceholderClass('remove');
+    }
+
+    // const modalTitle = refs.pokemonModal.querySelector('.modal-title')
+    // const modalBody = refs.pokemonModal.querySelector('.modal-body')
+    // modalTitle.textContent = `New message to ${recipient}`
+    // modalBodyInput.value = recipient
+}
+
+function handlePlaceholderClass(method) {
+    const placeholders = refs.pokemonModal
+        .querySelector('.modal-body')
+        .querySelectorAll('.placeholder-target');
+    placeholders.forEach(el => el.classList[method]('placeholder'));
+}
+
+function resetPokemonModal() {
+    refs.pokemonModal.querySelector('#pokemon-image').removeAttribute('src');
+    handlePlaceholderClass('add');
 }

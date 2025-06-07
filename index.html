@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="assets/styles/header.css">
   <link rel="stylesheet" href="assets/styles/footer.css">
   <link rel="stylesheet" href="assets/styles/utilites/cursor.css">
+  <link rel="stylesheet" href="assets/styles/pokemon-details-modal-modal.css">
 
   <!-- Responsive Design -->
   <link rel="stylesheet" href="assets/styles/responsive/responsive.css">
@@ -56,45 +57,39 @@
 
       <form class="col-12 col-sm-auto mb-3 mb-sm-0" onsubmit="search(); return false;">
         <div class="input-group">
-
-          <input class="form-control" type="search" id="pokemon-query" name="query" placeholder="Search your Pokemon"
+          <input type="search" name="query" id="pokemon-query" class="form-control" placeholder="Search your Pokemon"
             aria-label="Search your Pokemon" minlength="3" required onkeyup="handlePokemonInput()">
 
           <button type="submit" class="btn btn-outline-primary">
             <i class="bi bi-search"></i>
           </button>
 
-          <div data-bs-toggle="dropdown" class="btn-dropdown"></div>
-          <ul class="dropdown-menu w-100" id="search-suggestions">
+          <!-- Hidden dropdown trigger used only for programmatic activation -->
+          <div data-bs-toggle="dropdown"></div>
 
-          </ul>
+          <ul class="dropdown-menu w-100" role="menu"></ul>
+
         </div>
       </form>
 
     </div>
   </header>
 
-  <!-- Modal -->
-  <div class="modal" id="pokemonDetails" aria-labelledby="pokemon details" aria-hidden="true">
+  <div class="modal" id="pokemon-details-modal" aria-labelledby="modal-title" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-sm-down modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body p-0">
-
-          <div class="p-3">
-            <h1 class="modal-title fs-5 text-capitalize" id="pokemon-title"></h1>
-            <div class="container p-0" id="badge-group"></div>
+        <div class="modal-body placeholder-glow">
+          <div class="wrapper w-100 h-100 placeholder placeholder-target">
+            <img id="pokemon-image" class="w-100">
           </div>
-
-          <img id="pokemon-image" class="position-relative w-100 z-2">
-          <div class="container bg-dark position-absolute bottom-0 rounded-top-5s z-1" style="height: 50vh;"></div>
-
         </div>
       </div>
     </div>
   </div>
+
 </body>
 
 </html>
