@@ -1,9 +1,10 @@
 const refs = {
     dropdownTrigger: document.querySelector('[data-bs-toggle=dropdown]'),
     dropdownMenu: document.querySelector('.dropdown-menu'),
-    pokemonInput: document.getElementById('pokemon-query'),
+    pokemonInput: document.getElementById('pokemon-input'),
     pokemonModal: document.getElementById('pokemon-details-modal'),
-    pokemonImage: document.getElementById('pokemon-image'),
+    pokemonModalImage: document.getElementById('pokemon-image'),
+    pokemonModalTitle: document.getElementById('modal-title')
 };
 const P = new Pokedex.Pokedex({ cacheImages: true });
 let pokemons = [];
@@ -49,7 +50,7 @@ if (refs.pokemonModal) {
             // TODO: handle error 
         }
     })
-    refs.pokemonModal.addEventListener('hide.bs.modal', async event => {
+    refs.pokemonModal.addEventListener('hide.bs.modal', event => {
         resetPokemonModal();
     })
 }
@@ -59,10 +60,10 @@ function clearPokemonInput() {
 }
 
 function updatePokemonModal(pokemon) {
-    refs.pokemonImage.src = pokemon.sprites.other['official-artwork'].front_default;
-    refs.pokemonImage.onload = () => {
+    refs.pokemonModalImage.src = pokemon.sprites.other['official-artwork'].front_default;
+    refs.pokemonModalImage.onload = () => {
         togglePlaceholderClass('remove');
-        refs.pokemonImage.classList.remove('invisible');
+        refs.pokemonModalImage.classList.remove('invisible');
     }
 }
 
@@ -74,7 +75,7 @@ function togglePlaceholderClass(method) {
 }
 
 function resetPokemonModal() {
-    refs.pokemonImage.removeAttribute('src');
-    refs.pokemonImage.classList.add('invisible')
+    refs.pokemonModalImage.removeAttribute('src');
+    refs.pokemonModalImage.classList.add('invisible')
     togglePlaceholderClass('add');
 }

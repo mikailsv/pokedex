@@ -57,7 +57,7 @@
 
       <form class="col-12 col-sm-auto mb-3 mb-sm-0" onsubmit="search(); return false;">
         <div class="input-group">
-          <input type="search" name="query" id="pokemon-query" class="form-control" placeholder="Search your Pokemon"
+          <input type="search" name="query" id="pokemon-input" class="form-control" placeholder="Search your Pokemon"
             aria-label="Search your Pokemon" minlength="3" required onkeyup="handlePokemonInput()">
 
           <button type="submit" class="btn btn-outline-primary">
@@ -82,6 +82,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body placeholder-glow">
+          <h4 class="modal-title text-capitalize" id="pokemon-modal-title"></h4>
           <div class="wrapper w-100 h-100 placeholder placeholder-target">
             <img id="pokemon-image" class="w-100 invisible">
           </div>
