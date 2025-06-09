@@ -21,7 +21,8 @@
   <link rel="stylesheet" href="assets/styles/pokemon-modal/modal-image.css">
   <link rel="stylesheet" href="assets/styles/pokemon-modal/modal-title.css">
   <link rel="stylesheet" href="assets/styles/pokemon-modal/modal-badge-group.css">
-  <link rel="stylesheet" href="assets/styles/pokemon-modal/modal-text-wrapper.css">
+  <link rel="stylesheet" href="assets/styles/pokemon-modal/modal-title-wrapper.css">
+  <link rel="stylesheet" href="assets/styles/pokemon-modal/modal-tab-nav.css">
 
   <!-- Responsive Design -->
   <link rel="stylesheet" href="assets/styles/responsive/responsive.css">
@@ -85,13 +86,61 @@
         <div class="modal-header">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body placeholder-glow">
-          <div class="modal-text-wrapper col-6 placeholder rounded">
-            <h4 class="modal-title text-capitalize" id="modal-title"></h4>
+        <div class="modal-body placeholder-glow d-flex flex-column">
+          <div class="modal-title-wrapper col-7 rounded placeholder">
+            <h4 class="modal-title text-capitalize text-nowrap" id="modal-title"></h4>
             <div id="modal-badge-group" class="invisible"></div>
           </div>
-          <div class="modal-image-wrapper col-12 rounded mt-2 placeholder">
+          <div class="modal-image-wrapper col-12 my-2 rounded placeholder">
             <img id="modal-image" class="w-100 h-100 invisible">
+          </div>
+          <div class="flex-fill bg-light col-12 rounded">
+            <!-- Nav tabs -->
+            <ul class="nav nav-underline nav-fill" role="tablist">
+              <li class="nav-item">
+                <button 
+                class="nav-link text-reset active" 
+                data-bs-toggle="tab" 
+                role="tab"
+                data-bs-target="#about-panel"
+                type="button"  
+                aria-controls="about-panel" aria-selected="true">About</button>
+              </li>
+              <li class="nav-item">
+                <button 
+                class="nav-link text-reset" 
+                data-bs-toggle="tab"
+                role="tab"
+                data-bs-target="#stats-panel"
+                type="button"  
+                aria-controls="stats-panel" aria-selected="false">Stats</button>
+              </li>
+              <li class="nav-item">
+                <button 
+                class="nav-link text-reset" 
+                data-bs-toggle="tab" 
+                role="tab"
+                data-bs-target="#evolution-panel"
+                type="button"  
+                aria-controls="evolution-panel" aria-selected="false">Evolution</button>
+              </li>
+              <li class="nav-item">
+                <button 
+                class="nav-link text-reset" 
+                data-bs-toggle="tab" 
+                role="tab"
+                data-bs-target="#other-panel"
+                type="button"  
+                aria-controls="other-panel" aria-selected="false">Other</button>
+              </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="about-panel" role="tabpanel" aria-labelledby="" tabindex="0">A</div>
+              <div class="tab-pane fade" id="stats-panel" role="tabpanel" aria-labelledby="" tabindex="0">B</div>
+              <div class="tab-pane fade" id="evolution-panel" role="tabpanel" aria-labelledby="" tabindex="0">C</div>
+              <div class="tab-pane fade" id="other-panel" role="tabpanel" aria-labelledby="" tabindex="0">D</div>
+            </div>
           </div>
         </div>
       </div>
