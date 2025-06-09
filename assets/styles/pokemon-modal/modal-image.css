@@ -1,4 +1,7 @@
-#modal-image {
+.modal-image-wrapper {
     height: 200px;
+}
+
+#modal-image {
     object-fit: contain;
 }

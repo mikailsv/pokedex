@@ -62,8 +62,11 @@ function clearPokemonInput() {
 function updatePokemonModal(pokemon) {
     refs.pokemonModalTitle.textContent = pokemon.name;
     renderTypeBadges(pokemon.types.map(typeWrapper => typeWrapper.type.name));
+    refs.pokemonModalBadgeGroup.classList.remove('invisible');
+    refs.pokemonModal.querySelector('.modal-text-wrapper').classList.remove('placeholder');
     refs.pokemonModalImage.src = pokemon.sprites.other['official-artwork'].front_default;
     refs.pokemonModalImage.classList.remove('invisible');
+    refs.pokemonModalImage.onload = () => refs.pokemonModal.querySelector('.modal-image-wrapper').classList.remove('mt-2', 'placeholder');
 }
 
 function renderTypeBadges(types) {
@@ -72,8 +75,9 @@ function renderTypeBadges(types) {
 }
 
 function resetPokemonModal() {
-    refs.pokemonModalTitle.textContent = '';
-    refs.pokemonModalBadgeGroup.innerHTML = '';
+    refs.pokemonModalBadgeGroup.classList.add('invisible');
+    refs.pokemonModal.querySelector('.modal-text-wrapper').classList.add('placeholder');
     refs.pokemonModalImage.removeAttribute('src');
     refs.pokemonModalImage.classList.add('invisible');
+    refs.pokemonModal.querySelector('.modal-image-wrapper').classList.add('mt-2', 'placeholder');
 }

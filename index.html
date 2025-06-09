@@ -19,6 +19,9 @@
   <link rel="stylesheet" href="assets/styles/utilites/cursor.css">
   <link rel="stylesheet" href="assets/styles/bg-pokemon-types.css">
   <link rel="stylesheet" href="assets/styles/pokemon-modal/modal-image.css">
+  <link rel="stylesheet" href="assets/styles/pokemon-modal/modal-title.css">
+  <link rel="stylesheet" href="assets/styles/pokemon-modal/modal-badge-group.css">
+  <link rel="stylesheet" href="assets/styles/pokemon-modal/modal-text-wrapper.css">
 
   <!-- Responsive Design -->
   <link rel="stylesheet" href="assets/styles/responsive/responsive.css">
@@ -83,10 +86,12 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body placeholder-glow">
-          <h4 class="modal-title text-capitalize col-12" id="modal-title"></h4>
-          <div id="modal-badge-group"></div>
-          <div class="wrapper w-100">
-            <img id="modal-image" class="w-100 invisible">
+          <div class="modal-text-wrapper col-6 placeholder rounded">
+            <h4 class="modal-title text-capitalize" id="modal-title"></h4>
+            <div id="modal-badge-group" class="invisible"></div>
+          </div>
+          <div class="modal-image-wrapper col-12 rounded mt-2 placeholder">
+            <img id="modal-image" class="w-100 h-100 invisible">
           </div>
         </div>
       </div>
