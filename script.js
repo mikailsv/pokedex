@@ -3,8 +3,9 @@ const refs = {
     dropdownMenu: document.querySelector('.dropdown-menu'),
     pokemonInput: document.getElementById('pokemon-input'),
     pokemonModal: document.getElementById('pokemon-details-modal'),
-    pokemonModalImage: document.getElementById('pokemon-image'),
-    pokemonModalTitle: document.getElementById('modal-title')
+    pokemonModalImage: document.getElementById('modal-image'),
+    pokemonModalTitle: document.getElementById('modal-title'),
+    pokemonModalBadgeGroup: document.getElementById('modal-badge-group'),
 };
 const P = new Pokedex.Pokedex({ cacheImages: true });
 let pokemons = [];
@@ -44,7 +45,6 @@ if (refs.pokemonModal) {
         const name = event.relatedTarget.getAttribute('data-bs-pokemon');
         try {
             const pokemon = await P.getPokemonByName(name);
-            console.log(pokemon);
             updatePokemonModal(pokemon);
         } catch (error) {
             // TODO: handle error 
@@ -60,22 +60,20 @@ function clearPokemonInput() {
 }
 
 function updatePokemonModal(pokemon) {
+    refs.pokemonModalTitle.textContent = pokemon.name;
+    renderTypeBadges(pokemon.types.map(typeWrapper => typeWrapper.type.name));
     refs.pokemonModalImage.src = pokemon.sprites.other['official-artwork'].front_default;
-    refs.pokemonModalImage.onload = () => {
-        togglePlaceholderClass('remove');
-        refs.pokemonModalImage.classList.remove('invisible');
-    }
+    refs.pokemonModalImage.classList.remove('invisible');
 }
 
-function togglePlaceholderClass(method) {
-    const placeholders = refs.pokemonModal
-        .querySelector('.modal-body')
-        .querySelectorAll('.placeholder-target');
-    placeholders.forEach(el => el.classList[method]('placeholder'));
+function renderTypeBadges(types) {
+    refs.pokemonModalBadgeGroup.innerHTML = '';
+    types.forEach(type => refs.pokemonModalBadgeGroup.innerHTML += getBadgeTemplate(type));
 }
 
 function resetPokemonModal() {
+    refs.pokemonModalTitle.textContent = '';
+    refs.pokemonModalBadgeGroup.innerHTML = '';
     refs.pokemonModalImage.removeAttribute('src');
-    refs.pokemonModalImage.classList.add('invisible')
-    togglePlaceholderClass('add');
+    refs.pokemonModalImage.classList.add('invisible');
 }

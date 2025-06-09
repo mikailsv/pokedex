@@ -10,6 +10,6 @@ function getDropdownItemTemplate(pokemon) {
 
 function getBadgeTemplate(type) {
     return `
-    <span class="badge rounded-pill text-bg-secondary text-capitalize">${type}</span>
+    <span class="badge rounded-pill text-capitalize bg-${type}">${type}</span>
     `;
 }
