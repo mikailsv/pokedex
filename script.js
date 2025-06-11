@@ -6,6 +6,7 @@ const refs = {
     pokemonModalImage: document.getElementById('modal-image'),
     pokemonModalTitle: document.getElementById('modal-title'),
     pokemonModalBadgeGroup: document.getElementById('modal-badge-group'),
+    pokemonModalAboutPanel: document.getElementById('about-panel') 
 };
 const P = new Pokedex.Pokedex({ cacheImages: true });
 let pokemons = [];
@@ -60,13 +61,16 @@ function clearPokemonInput() {
 }
 
 function updatePokemonModal(pokemon) {
+    // modal title & badge wrapper
     refs.pokemonModalTitle.textContent = pokemon.name;
     renderTypeBadges(pokemon.types.map(typeWrapper => typeWrapper.type.name));
-    refs.pokemonModalBadgeGroup.classList.remove('invisible');
-    refs.pokemonModal.querySelector('.modal-title-wrapper').classList.remove('placeholder');
+    refs.pokemonModal.querySelector('.modal-title-wrapper').classList.remove('placeholder', 'content-invisible');
+    // modal image wrapper
     refs.pokemonModalImage.src = pokemon.sprites.other['official-artwork'].front_default;
-    refs.pokemonModalImage.classList.remove('invisible');
-    refs.pokemonModalImage.onload = () => refs.pokemonModal.querySelector('.modal-image-wrapper').classList.remove('mt-2', 'placeholder');
+    refs.pokemonModalImage.onload = () => refs.pokemonModal.querySelector('.modal-image-wrapper').classList.remove('placeholder', 'content-invisible');
+    // modal navigation tab panels
+    renderAboutPanel(pokemon.height, pokemon.weight);
+    refs.pokemonModal.querySelector('.tab-content').classList.remove('placeholder', 'content-invisible');
 }
 
 function renderTypeBadges(types) {
@@ -74,10 +78,22 @@ function renderTypeBadges(types) {
     types.forEach(type => refs.pokemonModalBadgeGroup.innerHTML += getBadgeTemplate(type));
 }
 
+function renderAboutPanel(pokemonHeight, pokemonWeight) {
+    refs.pokemonModalAboutPanel.innerHTML = '';
+    refs.pokemonModalAboutPanel.innerHTML += getAboutPanelRowTemplate('Height', formatHeightInMeters(pokemonHeight / 10));
+    refs.pokemonModalAboutPanel.innerHTML += getAboutPanelRowTemplate('Weight', formatWeightInKilograms(pokemonWeight / 10));
+}
+
+function formatHeightInMeters(h) {
+    return `${h.toFixed(2)} m`;
+}
+
+function formatWeightInKilograms(w) {
+    return `${w.toFixed(2)} kg`;
+}
+
 function resetPokemonModal() {
-    refs.pokemonModalBadgeGroup.classList.add('invisible');
-    refs.pokemonModal.querySelector('.modal-title-wrapper').classList.add('placeholder');
-    refs.pokemonModalImage.removeAttribute('src');
-    refs.pokemonModalImage.classList.add('invisible');
-    refs.pokemonModal.querySelector('.modal-image-wrapper').classList.add('mt-2', 'placeholder');
+    refs.pokemonModal.querySelector('.modal-title-wrapper').classList.add('placeholder', 'content-invisible');
+    refs.pokemonModal.querySelector('.modal-image-wrapper').classList.add('placeholder', 'content-invisible');
+    refs.pokemonModal.querySelector('.tab-content').classList.add('placeholder', 'content-invisible');
 }
