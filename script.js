@@ -6,19 +6,21 @@ const refs = {
     pokemonModalImage: document.getElementById('modal-image'),
     pokemonModalTitle: document.getElementById('modal-title'),
     pokemonModalBadgeGroup: document.getElementById('modal-badge-group'),
-    pokemonModalAboutPanel: document.getElementById('about-panel') 
+    pokemonModalAboutPanel: document.getElementById('about-panel'),
+    pokemonModalStatsPanel: document.getElementById('stats-panel')
 };
 const P = new Pokedex.Pokedex({ cacheImages: true });
 let pokemons = [];
 
 async function init() {
     let response = await P.getPokemonsList();
-    pokemons = response.results.map(function (pokemonEntry) {
-        return {
-            name: pokemonEntry.name,
-            id: pokemonEntry.url.split("/").slice(-2, -1).pop()
-        }
-    });
+    pokemons = response.results
+        .map(function (pokemonEntry) {
+            return {
+                name: pokemonEntry.name,
+                id: pokemonEntry.url.split("/").slice(-2, -1).pop()
+            }
+        });
 }
 
 function search() {
@@ -46,6 +48,7 @@ if (refs.pokemonModal) {
         const name = event.relatedTarget.getAttribute('data-bs-pokemon');
         try {
             const pokemon = await P.getPokemonByName(name);
+            console.log(pokemon);
             updatePokemonModal(pokemon);
         } catch (error) {
             // TODO: handle error 
@@ -61,15 +64,16 @@ function clearPokemonInput() {
 }
 
 function updatePokemonModal(pokemon) {
-    // modal title & badge wrapper
+    // title & badge
     refs.pokemonModalTitle.textContent = pokemon.name;
     renderTypeBadges(pokemon.types.map(typeWrapper => typeWrapper.type.name));
     refs.pokemonModal.querySelector('.modal-title-wrapper').classList.remove('placeholder', 'content-invisible');
-    // modal image wrapper
+    // image
     refs.pokemonModalImage.src = pokemon.sprites.other['official-artwork'].front_default;
     refs.pokemonModalImage.onload = () => refs.pokemonModal.querySelector('.modal-image-wrapper').classList.remove('placeholder', 'content-invisible');
-    // modal navigation tab panels
-    renderAboutPanel(pokemon.height, pokemon.weight);
+    // tab panels
+    renderAboutPanel(pokemon.height, pokemon.weight, pokemon.abilities.map(a => a.ability.name));
+    renderStatsPanel(pokemon.stats);
     refs.pokemonModal.querySelector('.tab-content').classList.remove('placeholder', 'content-invisible');
 }
 
@@ -78,10 +82,22 @@ function renderTypeBadges(types) {
     types.forEach(type => refs.pokemonModalBadgeGroup.innerHTML += getBadgeTemplate(type));
 }
 
-function renderAboutPanel(pokemonHeight, pokemonWeight) {
+function renderAboutPanel(pokemonHeight, pokemonWeight, pokemonAbilities) {
     refs.pokemonModalAboutPanel.innerHTML = '';
     refs.pokemonModalAboutPanel.innerHTML += getAboutPanelRowTemplate('Height', formatHeightInMeters(pokemonHeight / 10));
     refs.pokemonModalAboutPanel.innerHTML += getAboutPanelRowTemplate('Weight', formatWeightInKilograms(pokemonWeight / 10));
+    for (let i = 0; i < pokemonAbilities.length; i++) {
+        if(i == 0){
+            refs.pokemonModalAboutPanel.innerHTML += getAboutPanelRowTemplate('Abilities', pokemonAbilities[i]);
+        }else{
+            refs.pokemonModalAboutPanel.innerHTML += getAboutPanelRowTemplate('', pokemonAbilities[i]);
+        }
+    }
+}
+
+function renderStatsPanel(stats) {
+    refs.pokemonModalStatsPanel.innerHTML = '';
+    stats.forEach(stat => refs.pokemonModalStatsPanel.innerHTML += getAboutPanelRowTemplate(stat.stat.name,stat.base_stat));
 }
 
 function formatHeightInMeters(h) {

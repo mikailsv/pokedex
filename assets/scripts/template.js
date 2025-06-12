@@ -17,7 +17,7 @@ function getBadgeTemplate(type) {
 function getAboutPanelRowTemplate(title, value) {
     return `
     <div class="row mb-2">
-        <div class="col-4 text-secondary">${title}</div>
+        <div class="col-4 text-secondary text-capitalize">${title}</div>
         <div class="col-8">${value}</div>
     </div>
     `;
