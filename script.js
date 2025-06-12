@@ -87,22 +87,17 @@ function renderAboutPanel(pokemonHeight, pokemonWeight, pokemonAbilities) {
     refs.pokemonModalAboutPanel.innerHTML += getAboutPanelRowTemplate('Height', formatHeightInMeters(pokemonHeight / 10));
     refs.pokemonModalAboutPanel.innerHTML += getAboutPanelRowTemplate('Weight', formatWeightInKilograms(pokemonWeight / 10));
     for (let i = 0; i < pokemonAbilities.length; i++) {
-        const ability = capitalizeFirstLetter(pokemonAbilities[i]);
-        if (i == 0) {
-            refs.pokemonModalAboutPanel.innerHTML += getAboutPanelRowTemplate('Abilities', ability);
-        } else {
-            refs.pokemonModalAboutPanel.innerHTML += getAboutPanelRowTemplate('', ability);
+        if(i == 0){
+            refs.pokemonModalAboutPanel.innerHTML += getAboutPanelRowTemplate('Abilities', pokemonAbilities[i]);
+        }else{
+            refs.pokemonModalAboutPanel.innerHTML += getAboutPanelRowTemplate('', pokemonAbilities[i]);
         }
     }
-}
-function capitalizeFirstLetter(str) {
-    if (!str) return '';
-    return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 function renderStatsPanel(stats) {
     refs.pokemonModalStatsPanel.innerHTML = '';
-    stats.forEach(stat => refs.pokemonModalStatsPanel.innerHTML += getAboutPanelRowTemplate(stat.stat.name, stat.base_stat));
+    stats.forEach(stat => refs.pokemonModalStatsPanel.innerHTML += getAboutPanelRowTemplate(stat.stat.name,stat.base_stat));
 }
 
 function formatHeightInMeters(h) {
