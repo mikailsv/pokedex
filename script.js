@@ -121,4 +121,5 @@ function resetPokemonModal() {
     refs.pokemonModal.querySelector('.modal-title-wrapper').classList.add('placeholder', 'content-invisible');
     refs.pokemonModal.querySelector('.modal-image-wrapper').classList.add('placeholder', 'content-invisible');
     refs.pokemonModal.querySelector('.tab-content').classList.add('placeholder', 'content-invisible');
+    new bootstrap.Tab('#about-trigger-btn').show();
 }
