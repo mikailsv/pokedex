@@ -4,5 +4,11 @@
 
 #modal-image {
     object-fit: contain;
-    transform: translateY(-12px);
+}
+
+@media (min-width: 700px){
+    .modal-image-wrapper{
+        height: fit-content;
+        aspect-ratio: 2/1;
+    }
 }
