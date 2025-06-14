@@ -13,6 +13,10 @@ const P = new Pokedex.Pokedex({ cacheImages: true });
 let pokemons = [];
 let limit = 20;
 let offset = 0;
+const overlayModal = new bootstrap.Modal(document.getElementById('overlayModal'));
+const dropdown = new bootstrap.Dropdown(refs.dropdownTrigger);
+
+document.addEventListener('DOMContentLoaded', () => overlayModal.show());
 
 async function init() {
     let response = await P.getPokemonsList();
@@ -23,7 +27,8 @@ async function init() {
                 id: pokemonEntry.url.split("/").slice(-2, -1).pop()
             }
         });
-    initPokecardContainer();
+    await initPokecardContainer();
+    overlayModal.hide();
 }
 
 async function initPokecardContainer() {
@@ -32,8 +37,6 @@ async function initPokecardContainer() {
         document.getElementById('pokecard-container').innerHTML += getPokecardTemplate(pokemon);
     }
 }
-
-const overlayModal = new bootstrap.Modal(document.getElementById('overlayModal'));
 
 async function loadMorePokemons() {
     document.getElementById('more-btn').setAttribute('disabled', 'true');
@@ -47,8 +50,6 @@ async function loadMorePokemons() {
 function search() {
     // TODO: Implement submit event for searching and displaying pokemons, that matches query.
 }
-
-const dropdown = new bootstrap.Dropdown(refs.dropdownTrigger);
 
 function handlePokemonInput() {
     const pokemonName = refs.pokemonInput.value.toLowerCase();
