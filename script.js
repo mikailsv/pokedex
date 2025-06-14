@@ -12,6 +12,7 @@ const refs = {
 const P = new Pokedex.Pokedex({ cacheImages: true });
 let pokemons = [];
 let limit = 20;
+let offset = 0;
 
 async function init() {
     let response = await P.getPokemonsList();
@@ -26,11 +27,16 @@ async function init() {
 }
 
 async function initPokecardContainer() {
-    document.getElementById('pokecard-container').innerHTML = '';
-    for (let i = 1; i <= limit; i++) {
+    for (let i = 1 + offset; i <= limit; i++) {
         const pokemon = await P.getPokemonByName(i);
         document.getElementById('pokecard-container').innerHTML += getPokecardTemplate(pokemon);
     }
+}
+
+function loadMorePokemons() {
+    offset = limit;
+    limit += 20; 
+    initPokecardContainer();
 }
 
 function search() {
