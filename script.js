@@ -11,6 +11,7 @@ const refs = {
 };
 const P = new Pokedex.Pokedex({ cacheImages: true });
 let pokemons = [];
+let limit = 20;
 
 async function init() {
     let response = await P.getPokemonsList();
@@ -21,6 +22,15 @@ async function init() {
                 id: pokemonEntry.url.split("/").slice(-2, -1).pop()
             }
         });
+    initPokecardContainer();
+}
+
+async function initPokecardContainer() {
+    document.getElementById('pokecard-container').innerHTML = '';
+    for (let i = 1; i <= limit; i++) {
+        const pokemon = await P.getPokemonByName(i);
+        document.getElementById('pokecard-container').innerHTML += getPokecardTemplate(pokemon);
+    }
 }
 
 function search() {
@@ -48,7 +58,6 @@ if (refs.pokemonModal) {
         const name = event.relatedTarget.getAttribute('data-bs-pokemon');
         try {
             const pokemon = await P.getPokemonByName(name);
-            console.log(pokemon);
             updatePokemonModal(pokemon);
         } catch (error) {
             // TODO: handle error 
@@ -87,9 +96,9 @@ function renderAboutPanel(pokemonHeight, pokemonWeight, pokemonAbilities) {
     refs.pokemonModalAboutPanel.innerHTML += getAboutPanelRowTemplate('Height', formatHeightInMeters(pokemonHeight / 10));
     refs.pokemonModalAboutPanel.innerHTML += getAboutPanelRowTemplate('Weight', formatWeightInKilograms(pokemonWeight / 10));
     for (let i = 0; i < pokemonAbilities.length; i++) {
-        if(i == 0){
+        if (i == 0) {
             refs.pokemonModalAboutPanel.innerHTML += getAboutPanelRowTemplate('Abilities', pokemonAbilities[i]);
-        }else{
+        } else {
             refs.pokemonModalAboutPanel.innerHTML += getAboutPanelRowTemplate('', pokemonAbilities[i]);
         }
     }
@@ -97,7 +106,7 @@ function renderAboutPanel(pokemonHeight, pokemonWeight, pokemonAbilities) {
 
 function renderStatsPanel(stats) {
     refs.pokemonModalStatsPanel.innerHTML = '';
-    stats.forEach(stat => refs.pokemonModalStatsPanel.innerHTML += getAboutPanelRowTemplate(stat.stat.name,stat.base_stat));
+    stats.forEach(stat => refs.pokemonModalStatsPanel.innerHTML += getAboutPanelRowTemplate(stat.stat.name, stat.base_stat));
 }
 
 function formatHeightInMeters(h) {
