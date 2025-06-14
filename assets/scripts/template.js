@@ -18,7 +18,7 @@ function getAboutPanelRowTemplate(title, value) {
     return `
     <div class="row mb-2">
         <div class="col-6 text-secondary text-capitalize">${title}</div>
-        <div class="col-6 text-end">${value}</div>
+        <div class="col-6">${value}</div>
     </div>
     `;
 }
