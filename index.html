@@ -89,7 +89,8 @@
     </div>
     <section class="pb-3">
       <div class="container d-flex justify-content-center align-items-center">
-        <button type="button" class="btn btn-primary" onclick="loadMorePokemons()">More</button>
+        <button data-bs-toggle="modal" data-bs-target="#overlayModal" type="button" class="btn btn-primary"
+          onclick="loadMorePokemons()" id="more-btn">More</button>
       </div>
     </section>
   </main>
@@ -105,7 +106,7 @@
             <h4 class="modal-title text-capitalize text-nowrap" id="modal-title"></h4>
             <div id="modal-badge-group"></div>
           </div>
-          <div class="modal-image-wrapper col-12 my-1 rounded placeholder content-invisible">
+          <div class="modal-image-wrapper col-12 mt-2 rounded placeholder content-invisible">
             <img id="modal-image" class="w-100 h-100">
           </div>
           <!-- Nav tabs -->
@@ -128,7 +129,7 @@
             </li>
           </ul>
           <!-- Tab panes -->
-          <div class="tab-content rounded  flex-fill p-2 mt-1 placeholder content-invisible">
+          <div class="tab-content rounded  flex-fill p-2 mt-2 placeholder content-invisible">
             <div class="tab-pane fade show active" id="about-panel" role="tabpanel" tabindex="0"></div>
             <div class="tab-pane fade" id="stats-panel" role="tabpanel" tabindex="0"></div>
             <div class="tab-pane fade" id="evolution-panel" role="tabpanel" tabindex="0">Evolution</div>
@@ -137,6 +138,15 @@
 
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Overlay Spinner -->
+  <!-- Modal als Overlay -->
+  <div class="modal" id="overlayModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+  style="background: rgba(255, 255, 255, 0.9);">
+    <div class="modal-dialog modal-dialog-centered d-flex align-items-center justify-content-center">
+      <div class="spinner-border text-primary mt-3" role="status"></div>
     </div>
   </div>
 </body>

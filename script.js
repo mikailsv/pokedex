@@ -33,10 +33,15 @@ async function initPokecardContainer() {
     }
 }
 
-function loadMorePokemons() {
+const overlayModal = new bootstrap.Modal(document.getElementById('overlayModal'));
+
+async function loadMorePokemons() {
+    document.getElementById('more-btn').setAttribute('disabled', 'true');
     offset = limit;
-    limit += 20; 
-    initPokecardContainer();
+    limit += 10;
+    await initPokecardContainer();
+    document.getElementById('more-btn').removeAttribute('disabled');
+    overlayModal.hide();
 }
 
 function search() {
